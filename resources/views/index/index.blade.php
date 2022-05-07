@@ -72,9 +72,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="/bbb">奔波霸</a>
-                    <a href="/xjy">馨家园</a>
-                    <a href="/cunli">村里的馆</a>
+                    <a href="/bbb" target="_blank">奔波霸</a>
+                    <a href="/xjy" target="_blank">馨家园</a>
+                    <a href="/cunli" target="_blank">村里的馆</a>
                 </div>
             </div>
         </div>
