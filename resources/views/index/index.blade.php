@@ -16,12 +16,12 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
-                height: 70vh;
+                height: 80vh;
                 margin: 0;
             }
 
             .full-height {
-                height: 70vh;
+                height: 80vh;
             }
 
             .flex-center {
@@ -45,13 +45,13 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 70px;
             }
 
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                /* font-size: 13px; */
+                font-size: 20px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -59,7 +59,7 @@
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 50px;
             }
         </style>
     </head>
@@ -68,13 +68,17 @@
         
             <div class="content">
                 <div class="title m-b-md">
-                    Xiao Yao
+                    Welcome, Help Yourself
                 </div>
 
-                <div class="links">
+                <div class="links m-b-md">
                     <a href="/bbb" target="_blank">奔波霸</a>
                     <a href="/xjy" target="_blank">馨家园</a>
                     <a href="/cunli" target="_blank">村里的馆</a>
+                </div>
+
+                <div  style="font-size: 20px; font-weight: 200; margin-top: 60px; ">
+                    - By xiao yao
                 </div>
             </div>
         </div>
