@@ -1,3 +1,3 @@
 ## Note
 
-Just test application for carol yao !
+Just test application for carol yao
