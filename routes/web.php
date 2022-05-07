@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@Index');
+Route::get('bbb', 'IndexController@BenBoBa');
+Route::get('xjy', 'IndexController@XinJiaYuan');
+Route::get('cunli', 'IndexController@CunLi');
