@@ -23,7 +23,7 @@ class IndexController extends Controller
     {
         $token = $request->get("token");
         if (empty($request->get("token"))) {
-            $token = "jsc2skp.7aac5508-5f8e-4025-a8af-97cb9e67506a";
+            $token = "jsc2skp.ea7e3849-d2d2-4d6f-986b-c86c5538dc22";
         }
 
         $url = "https://mapi.weimob.com/api3/o2oadapter/gateway/tradeServices/v1.0/booking/queryTimesByService";
@@ -100,7 +100,7 @@ class IndexController extends Controller
                 if ($data['errcode'] != 0) {
                     if ($data['errcode'] == 1041) {
                         echo "<span style='color: red;'>token 已过期, 请重新获取token.</span>" . "<br>";
-                        echo "<span style='color: red;'>本页面可自行使用新的token访问, 在地址栏后拼接token参数即可, 例: xxx/search_sites.php?token=新token</span>";
+                        echo "<span style='color: red;'>本页面可自行使用新的token访问, 在地址栏后拼接token参数即可, 例: xxx/bbb?token=新token</span>";
                     } else {
                         echo $data['errmsg'] . "<br>";
                     }
