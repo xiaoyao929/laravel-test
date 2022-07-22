@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ApiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -23,7 +24,7 @@ class IndexController extends Controller
     {
         $token = $request->get("token");
         if (empty($request->get("token"))) {
-            $token = "jsc2skp.ea7e3849-d2d2-4d6f-986b-c86c5538dc22";
+            $token = "jsc2skp.119a0bcf-a982-4e56-81cb-4e1df71a7023";
         }
 
         $url = "https://mapi.weimob.com/api3/o2oadapter/gateway/tradeServices/v1.0/booking/queryTimesByService";
