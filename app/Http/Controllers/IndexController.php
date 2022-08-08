@@ -24,7 +24,7 @@ class IndexController extends Controller
     {
         $token = $request->get("token");
         if (empty($request->get("token"))) {
-            $token = "jsc2skp.119a0bcf-a982-4e56-81cb-4e1df71a7023";
+            $token = "jsc2skp.afb3fd17-2e5b-4af6-adf5-7c65da1724e1";
         }
 
         $url = "https://mapi.weimob.com/api3/o2oadapter/gateway/tradeServices/v1.0/booking/queryTimesByService";
