@@ -225,98 +225,132 @@ class IndexController extends Controller
 
     public function CunLi()
     {
-        // get auth data
-
-        $authOptions = [
-            "headers" => [
-                "user-agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36",
-            ]
-        ];
-        $authUrl = "https://mvp.joyreserve.com/index.php/Wechat/Login/user_login?subnet_name=11ec490cd26eeb00";
-        $tokenData = $this->apiService->getResponse("get", $authUrl, $authOptions);
-        $authUrl = $tokenData['data']['auth_url'];
-        $queryUrl = parse_url($authUrl);
-        $loginToken = str_replace("token=", "", $queryUrl['query']);
-
-        $headers = [
-            "accept" => "application/json",
-            "accept-encoding" => "gzip, deflate, br",
-            "content-type" => "application/json",
-            "origin" => "https://general-master.joyreserve.com",
-            "user-agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.16(0x18001031) NetType/WIFI Language/zh_CN",
-        ];
-
-        // login
-        $loginUrl = 'https://mvp.joyreserve.com/index.php/Wechat/Login/login_in';
-        $loginHeaders = array_merge($headers, ["token" => $loginToken]);
-        $loginParams = [
-            "phone" => "13761718098",
-            "password" => "Yl111111",
-            "sign_list" => []
-        ];
-        $loginOptions = [
-            "json" => $loginParams,
-            "headers" => $loginHeaders,
-        ];
-        $loginData = $this->apiService->getResponse("post", $loginUrl, $loginOptions);
-        $token = $loginData['data']['token'];
-
-        if (!empty($_REQUEST['token'])) {
-            $token = $_REQUEST['token'];
-        }
-
-        // search data
-        $url = "https://mvp.joyreserve.com/index.php/Wechat/Index/time_display";
-        $sitesHeaders = array_merge($headers, ["token" => $token]);
-
-        $sites = [
-            "1号场地" => [
-                "id" => 4158,
-            ],
-            "2号场地" => [
-                "id" => 4159,
-            ],
-            "3号场地" => [
-                "id" => 4160,
-            ],
-            "4号场地" => [
-                "id" => 4161,
-            ],
-            "5号场地" => [
-                "id" => 4162,
-            ],
-
-        ];
 
 
-        $bookingDate = date("Y-m-d");
-        $list[$bookingDate] = [];
-        $params['date'] = $bookingDate;
-        foreach ($sites as $name => $info) {
-            $params['display_type'] = "private";
-            $params['resource_id'] = $info['id'];
-            $sitesOptions = [
-                "json" => $params,
-                "headers" => $sitesHeaders,
+
+
+        $url = "https://chaapi.dzxwbj.com/Chang/timeListchang";
+
+        $i = 0;
+        $list = [];
+        while ($i < 7) {
+            $timestamp = strtotime(date("Y-m-d")) + $i * 24 * 3600;
+            $bookingDate = date("Y-m-d", $timestamp);
+            $params = [
+                "id" => "1629",
+                "time" => $bookingDate
             ];
-            $data = $this->apiService->getResponse("post", $url, $sitesOptions);
-            if ($data['code'] != 200) {
-                echo $data['message'] . "<br>";
-                die;
-            }
-            if (empty($data['data'][0]['item'])) {
-                continue;
-            }
-            $calendar = $data['data'][0]['item'];
-            foreach ($calendar as $key => $value) {
-                foreach ($value['item'] as $k => $v) {
-                    if ($v['is_reserve']) {
-                        $timeRange = $v['time'];
-                        $list[$value['date']][$name][] = $timeRange;
+            $options = [
+                "json" => $params,
+                "headers" => [
+                    "user-agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 11_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E217 MicroMessenger/6.8.0(0x16080000) NetType/WIFI Language/en Branch/Br_trunk MiniProgramEnv/Mac",
+                ],
+            ];
+            $data = $this->apiService->getResponse("post", $url, $options);
+            $stores = $data['data']['store'];
+            $times = $data['data']['time'];
+            foreach ($stores as $val) {
+                foreach ($val['list'] as $k => $v) {
+                    if ($v['status'] == 0) {
+                        $list[$bookingDate][$val['name']][] = $times[$k]['beginTime'] . "-" . $times[$k]['endTime'];
                     }
                 }
             }
+            $i++;
         }
+
+        // get auth data
+
+        // $authOptions = [
+        //     "headers" => [
+        //         "user-agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36",
+        //     ]
+        // ];
+        // $authUrl = "https://mvp.joyreserve.com/index.php/Wechat/Login/user_login?subnet_name=11ec490cd26eeb00";
+        // $tokenData = $this->apiService->getResponse("get", $authUrl, $authOptions);
+        // $authUrl = $tokenData['data']['auth_url'];
+        // $queryUrl = parse_url($authUrl);
+        // $loginToken = str_replace("token=", "", $queryUrl['query']);
+
+        // $headers = [
+        //     "accept" => "application/json",
+        //     "accept-encoding" => "gzip, deflate, br",
+        //     "content-type" => "application/json",
+        //     "origin" => "https://general-master.joyreserve.com",
+        //     "user-agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 13_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.16(0x18001031) NetType/WIFI Language/zh_CN",
+        // ];
+
+        // // login
+        // $loginUrl = 'https://mvp.joyreserve.com/index.php/Wechat/Login/login_in';
+        // $loginHeaders = array_merge($headers, ["token" => $loginToken]);
+        // $loginParams = [
+        //     "phone" => "13761718098",
+        //     "password" => "Yl111111",
+        //     "sign_list" => []
+        // ];
+        // $loginOptions = [
+        //     "json" => $loginParams,
+        //     "headers" => $loginHeaders,
+        // ];
+        // $loginData = $this->apiService->getResponse("post", $loginUrl, $loginOptions);
+        // $token = $loginData['data']['token'];
+
+        // if (!empty($_REQUEST['token'])) {
+        //     $token = $_REQUEST['token'];
+        // }
+
+        // // search data
+        // $url = "https://mvp.joyreserve.com/index.php/Wechat/Index/time_display";
+        // $sitesHeaders = array_merge($headers, ["token" => $token]);
+
+        // $sites = [
+        //     "1号场地" => [
+        //         "id" => 4158,
+        //     ],
+        //     "2号场地" => [
+        //         "id" => 4159,
+        //     ],
+        //     "3号场地" => [
+        //         "id" => 4160,
+        //     ],
+        //     "4号场地" => [
+        //         "id" => 4161,
+        //     ],
+        //     "5号场地" => [
+        //         "id" => 4162,
+        //     ],
+
+        // ];
+
+
+        // $bookingDate = date("Y-m-d");
+        // $list[$bookingDate] = [];
+        // $params['date'] = $bookingDate;
+        // foreach ($sites as $name => $info) {
+        //     $params['display_type'] = "private";
+        //     $params['resource_id'] = $info['id'];
+        //     $sitesOptions = [
+        //         "json" => $params,
+        //         "headers" => $sitesHeaders,
+        //     ];
+        //     $data = $this->apiService->getResponse("post", $url, $sitesOptions);
+        //     if ($data['code'] != 200) {
+        //         echo $data['message'] . "<br>";
+        //         die;
+        //     }
+        //     if (empty($data['data'][0]['item'])) {
+        //         continue;
+        //     }
+        //     $calendar = $data['data'][0]['item'];
+        //     foreach ($calendar as $key => $value) {
+        //         foreach ($value['item'] as $k => $v) {
+        //             if ($v['is_reserve']) {
+        //                 $timeRange = $v['time'];
+        //                 $list[$value['date']][$name][] = $timeRange;
+        //             }
+        //         }
+        //     }
+        // }
 
         $weekMap = [
             "0" => "日",
