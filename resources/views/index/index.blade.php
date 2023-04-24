@@ -72,9 +72,9 @@
                 </div>
 
                 <div class="links m-b-md">
-                    <a href="/bbb" target="_blank">奔波霸</a>
+                    {{-- <a href="/bbb" target="_blank">奔波霸</a> --}}
                     <a href="/xjy" target="_blank">馨家园</a>
-                    <a href="/cunli" target="_blank">村里的馆</a>
+                    <a href="/cunli" target="_blank">Cr 樱花</a>
                 </div>
 
                 <div  style="font-size: 20px; font-weight: 200; margin-top: 60px; ">

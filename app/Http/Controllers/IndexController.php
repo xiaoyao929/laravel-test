@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\ApiService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -225,10 +224,6 @@ class IndexController extends Controller
 
     public function CunLi()
     {
-
-
-
-
         $url = "https://chaapi.dzxwbj.com/Chang/timeListchang";
 
         $i = 0;
