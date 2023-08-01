@@ -68,7 +68,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Welcome, Help Yourself 111111111
+                    Welcome, Help Yourself
                 </div>
 
                 <div class="links m-b-md">
